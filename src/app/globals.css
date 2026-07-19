@@ -3,11 +3,20 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  overflow-x: hidden;
 }
 
-.floral-bg-image {
-  background-image: url('https://placehold.co/1920x1080.png');
+/* Poetic fonts */
+.font-serif {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+/* Custom background image */
+.lyriqa-bg-image {
+  background-image: url('/lyriqa_mystical_bg.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -15,104 +24,120 @@ body {
 
 @layer base {
   :root {
-    --background: 240 60% 98%; /* #F7F7FC - Very light grayish-lavender */
-    --foreground: 250 30% 25%; /* Dark lavender text */
+    --background: 172 65% 5%; /* Mystical deep teal/emerald (#041c1a) */
+    --foreground: 170 30% 92%; /* Minty soft white (#e5f4f2) */
 
-    --card: 240 100% 99%; /* Almost white, slightly lavender tinted */
-    --card-foreground: 250 30% 25%; /* Same as foreground */
+    --card: 172 45% 7%; /* Luminous translucent dark teal card (#052321) */
+    --card-foreground: 170 30% 92%;
 
-    --popover: 240 100% 99%;
-    --popover-foreground: 250 30% 25%;
+    --popover: 172 45% 7%;
+    --popover-foreground: 170 30% 92%;
 
-    --primary: 250 65% 88%; /* #E0D9FA - Soft Lavender */
-    --primary-foreground: 250 40% 20%; /* Darker lavender text on primary */
+    --primary: 45 93% 58%; /* Radiant Amber Gold (#fbbf24) */
+    --primary-foreground: 172 65% 4%;
 
-    --secondary: 250 50% 92%; /* Lighter lavender for secondary elements */
-    --secondary-foreground: 250 35% 22%;
+    --secondary: 172 30% 12%; /* Muted slate teal */
+    --secondary-foreground: 170 30% 92%;
 
-    --muted: 240 30% 95%; /* Muted lavender gray */
-    --muted-foreground: 240 15% 50%; /* Grayer text for muted */
+    --muted: 172 35% 10%;
+    --muted-foreground: 170 15% 65%;
 
-    --accent: 300 55% 88%; /* #F0D9F0 - Muted Rose */
-    --accent-foreground: 300 30% 25%; /* Darker rose text on accent */
+    --accent: 160 84% 60%; /* Glowing turquoise/mint green (#34d399) */
+    --accent-foreground: 172 65% 4%;
 
-    --destructive: 0 70% 55%; /* Adjusted lightness for better visibility */
+    --destructive: 0 80% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 250 30% 85%; /* Lavender border */
-    --input: 250 30% 90%; /* Light lavender input background */
-    --ring: 300 55% 80%; /* Muted rose for ring */
+    --border: 172 30% 14%; /* Deep teal borders */
+    --input: 172 35% 8%;
+    --ring: 45 93% 58%;
 
-    --chart-1: 250 60% 70%;
-    --chart-2: 300 50% 75%;
-    --chart-3: 240 40% 65%;
-    --chart-4: 280 55% 70%;
-    --chart-5: 260 65% 75%;
-    --radius: 0.5rem;
-
-    /* Sidebar specific colors, can be adjusted if sidebar is used extensively */
-    --sidebar-background: 240 50% 96%;
-    --sidebar-foreground: 250 30% 30%;
-    --sidebar-primary: 250 65% 80%;
-    --sidebar-primary-foreground: 250 40% 15%;
-    --sidebar-accent: 300 55% 85%;
-    --sidebar-accent-foreground: 300 30% 20%;
-    --sidebar-border: 250 30% 80%;
-    --sidebar-ring: 300 55% 75%;
+    --radius: 0.75rem;
   }
 
   .dark {
-    /* Define dark theme colors if needed, for now, keeping them similar to light or adjusting slightly */
-    --background: 250 15% 12%; /* Dark lavender-gray */
-    --foreground: 240 30% 90%; /* Light lavender text */
-
-    --card: 250 15% 15%;
-    --card-foreground: 240 30% 90%;
-
-    --popover: 250 15% 15%;
-    --popover-foreground: 240 30% 90%;
-
-    --primary: 250 55% 65%; /* Brighter Lavender for dark mode */
-    --primary-foreground: 250 30% 15%; /* Darker text on primary */
-
-    --secondary: 250 30% 25%;
-    --secondary-foreground: 240 30% 85%;
-
-    --muted: 250 20% 22%;
-    --muted-foreground: 240 20% 65%;
-
-    --accent: 300 50% 70%; /* Brighter Rose for dark mode */
-    --accent-foreground: 300 25% 20%;
-
-    --destructive: 0 60% 50%;
+    /* Identical for dark-mode rendering */
+    --background: 172 65% 5%;
+    --foreground: 170 30% 92%;
+    --card: 172 45% 7%;
+    --card-foreground: 170 30% 92%;
+    --popover: 172 45% 7%;
+    --popover-foreground: 170 30% 92%;
+    --primary: 45 93% 58%;
+    --primary-foreground: 172 65% 4%;
+    --secondary: 172 30% 12%;
+    --secondary-foreground: 170 30% 92%;
+    --muted: 172 35% 10%;
+    --muted-foreground: 170 15% 65%;
+    --accent: 160 84% 60%;
+    --accent-foreground: 172 65% 4%;
+    --destructive: 0 80% 55%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 250 20% 30%;
-    --input: 250 20% 28%;
-    --ring: 300 50% 65%;
-
-    --chart-1: 250 50% 60%;
-    --chart-2: 300 40% 65%;
-    --chart-3: 240 30% 55%;
-    --chart-4: 280 45% 60%;
-    --chart-5: 260 55% 65%;
-
-    --sidebar-background: 250 15% 10%;
-    --sidebar-foreground: 240 30% 88%;
-    --sidebar-primary: 250 55% 60%;
-    --sidebar-primary-foreground: 250 30% 10%;
-    --sidebar-accent: 300 50% 65%;
-    --sidebar-accent-foreground: 300 25% 15%;
-    --sidebar-border: 250 20% 25%;
-    --sidebar-ring: 300 50% 60%;
+    --border: 172 30% 14%;
+    --input: 172 35% 8%;
+    --ring: 45 93% 58%;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+@layer utilities {
+  /* Ambient card glow shadow */
+  .glow-card {
+    box-shadow: 0 4px 30px -5px rgba(4, 28, 26, 0.6);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  body {
-    @apply bg-background text-foreground;
+  
+  .glow-card:hover {
+    box-shadow: 0 0 35px -5px rgba(251, 191, 36, 0.12), 0 0 15px -5px rgba(52, 211, 153, 0.08);
+    border-color: rgba(251, 191, 36, 0.35);
+  }
+
+  /* Animated glowing primary button */
+  .btn-glow {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-glow::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .btn-glow:hover::after {
+    opacity: 1;
+  }
+
+  /* Slow subtle background animation */
+  .animate-slow-pan {
+    animation: slowPan 60s ease infinite alternate;
+  }
+
+  /* Poem text fade-in effect */
+  .fade-in-text {
+    animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes slowPan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
   }
 }

@@ -12,7 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Loader2, Wand2 } from "lucide-react";
+import { Loader2, PenTool, Sparkles, Feather } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 
@@ -56,17 +56,26 @@ export function PoemGenerator() {
         style: data.style,
       };
       const result = await generatePoem(input);
-      setGeneratedPoem(result.poem);
-      toast({
-        title: "Poem Generated!",
-        description: "Your masterpiece awaits.",
-      });
+      if (result.success) {
+        setGeneratedPoem(result.poem);
+        toast({
+          title: "Poem Generated!",
+          description: "Your masterpiece awaits.",
+        });
+      } else {
+        setGeneratedPoem(result.error);
+        toast({
+          title: result.isRateLimit ? "Rate Limit Exceeded" : "Error",
+          description: result.error,
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       console.error("Error generating poem:", error);
       setGeneratedPoem("Failed to generate poem. Please try again.");
       toast({
         title: "Error",
-        description: "Could not generate poem. Please check the console for details.",
+        description: "An unexpected client-side error occurred. Please check the console for details.",
         variant: "destructive",
       });
     } finally {
@@ -75,28 +84,35 @@ export function PoemGenerator() {
   };
 
   return (
-    <div className="container mx-auto p-4 md:p-8 flex flex-col md:flex-row gap-8 items-start">
-      <Card className="md:w-1/2 w-full shadow-xl rounded-lg">
-        <CardHeader>
-          <CardTitle className="text-3xl font-semibold flex items-center gap-2">
-            <Wand2 className="h-7 w-7 text-accent" />
-            Create Your Poem
+    <div className="w-full max-w-6xl h-full flex flex-col md:flex-row gap-6 items-stretch overflow-hidden">
+      {/* Left panel: Form Controls */}
+      <Card className="flex-1 flex flex-col h-full bg-card/5 backdrop-blur-sm border-teal-500/20 shadow-xl shadow-black/10 rounded-xl overflow-hidden transition-all duration-300">
+        <CardHeader className="space-y-1 p-5 pb-2">
+          <CardTitle className="text-xl font-bold flex items-center gap-3 text-foreground">
+            <PenTool className="h-5 w-5 text-primary" />
+            Shape Your Verses
           </CardTitle>
-          <CardDescription>Enter a theme and select a style to begin.</CardDescription>
+          <CardDescription className="text-xs text-muted-foreground/80">
+            Define a theme and style, then let the system weave them into poetry.
+          </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-5 pt-2 flex-grow flex flex-col justify-center overflow-y-auto">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
                 name="theme"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-lg">Theme</FormLabel>
+                  <FormItem className="space-y-1">
+                    <FormLabel className="text-xs font-semibold tracking-wide uppercase text-muted-foreground">Theme</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., Spring rain, Silent mountains" {...field} className="text-base"/>
+                      <Input 
+                        placeholder="e.g., Autumn winds, Whispers of the sea" 
+                        {...field} 
+                        className="text-sm bg-background/10 border-border/30 focus:border-primary/80 text-foreground rounded-lg h-10 focus:ring-1 focus:ring-primary/50 placeholder:text-muted-foreground/30 backdrop-blur-xs"
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-xs" />
                   </FormItem>
                 )}
               />
@@ -104,34 +120,41 @@ export function PoemGenerator() {
                 control={form.control}
                 name="style"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-lg">Style</FormLabel>
+                  <FormItem className="space-y-1">
+                    <FormLabel className="text-xs font-semibold tracking-wide uppercase text-muted-foreground">Style</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger className="text-base">
-                          <SelectValue placeholder="Select a poem style" />
+                        <SelectTrigger className="text-sm bg-background/10 border-border/30 focus:border-primary/80 text-foreground rounded-lg h-10 focus:ring-1 focus:ring-primary/50 backdrop-blur-xs">
+                          <SelectValue placeholder="Select a poetry style" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className="bg-popover/95 border-border/70 rounded-lg">
                         {poemStyles.map((style) => (
-                          <SelectItem key={style} value={style} className="text-base">
+                          <SelectItem key={style} value={style} className="text-sm hover:bg-muted focus:bg-muted cursor-pointer transition-colors duration-150">
                             {style}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage />
+                    <FormMessage className="text-xs" />
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isLoading} className="w-full text-lg py-6 rounded-md">
+              <Button 
+                type="submit" 
+                disabled={isLoading} 
+                className="w-full text-sm font-semibold py-5 rounded-lg btn-glow bg-gradient-to-r from-primary to-accent hover:from-primary/95 hover:to-accent/95 text-primary-foreground shadow-md hover:shadow-primary/10 transition-all duration-300"
+              >
                 {isLoading ? (
                   <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Generating...
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Weaving words...
                   </>
                 ) : (
-                  "Generate Poem"
+                  <>
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    Generate Poem
+                  </>
                 )}
               </Button>
             </form>
@@ -139,29 +162,37 @@ export function PoemGenerator() {
         </CardContent>
       </Card>
 
-      <Card className="md:w-1/2 w-full shadow-xl rounded-lg min-h-[300px] md:min-h-0 flex flex-col">
-        <CardHeader>
-          <CardTitle className="text-3xl font-semibold">Your Poetic Creation</CardTitle>
-          <CardDescription>
-            {isLoading ? "Crafting your verses..." : (generatedPoem ? "Here is your poem:" : "Your poem will appear here.")}
+      {/* Right panel: Poem output display */}
+      <Card className="flex-1 flex flex-col h-full bg-card/5 backdrop-blur-sm border-teal-500/20 shadow-xl shadow-black/10 rounded-xl overflow-hidden transition-all duration-300">
+        <CardHeader className="space-y-1 p-5 pb-2">
+          <CardTitle className="text-xl font-bold flex items-center gap-3 text-foreground">
+            <Feather className="h-5 w-5 text-accent" />
+            The Canvas
+          </CardTitle>
+          <CardDescription className="text-xs text-muted-foreground/80">
+            {isLoading ? "Channeling the muse..." : (generatedPoem ? "Your generated creation:" : "Where your lines will take form.")}
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex-grow">
-          <ScrollArea className="h-[300px] md:h-[400px] w-full rounded-md border border-input p-4 bg-muted/30">
+        <CardContent className="p-5 pt-2 flex-grow flex flex-col overflow-hidden">
+          <div className="flex-grow h-0 overflow-y-auto border border-border/25 p-5 bg-background/5 backdrop-blur-xs rounded-lg custom-scrollbar">
             {isLoading ? (
-              <div className="flex items-center justify-center h-full">
-                <Loader2 className="h-12 w-12 animate-spin text-primary" />
+              <div className="flex flex-col items-center justify-center h-full min-h-[180px] space-y-3">
+                <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                <p className="text-muted-foreground font-serif italic text-sm animate-pulse">Consulting the ether...</p>
               </div>
             ) : generatedPoem ? (
-              <pre className="whitespace-pre-wrap text-foreground text-base leading-relaxed font-sans">
-                {generatedPoem}
-              </pre>
+              <div className="fade-in-text flex flex-col justify-center min-h-full py-2">
+                <pre className="whitespace-pre-wrap text-foreground text-base md:text-lg font-serif italic leading-relaxed text-center">
+                  {generatedPoem}
+                </pre>
+              </div>
             ) : (
-              <p className="text-muted-foreground text-center flex items-center justify-center h-full text-base">
-                Let your imagination bloom...
-              </p>
+              <div className="flex flex-col items-center justify-center h-full min-h-[180px] text-center space-y-3 opacity-60">
+                <Feather className="h-10 w-10 text-primary/50 animate-bounce" style={{ animationDuration: '4s' }} />
+                <p className="text-muted-foreground font-serif italic text-base">Awaiting the spark of creation...</p>
+              </div>
             )}
-          </ScrollArea>
+          </div>
         </CardContent>
       </Card>
     </div>
