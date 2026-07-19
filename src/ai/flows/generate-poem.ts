@@ -4,22 +4,19 @@
  *
  * - generatePoem - A function that generates a poem.
  * - GeneratePoemInput - The input type for the generatePoem function.
- * - GeneratePoemOutput - The output type for the generatePoem function.
+ * - GeneratePoemResponse - The output type for the generatePoem function.
  */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { GoogleGenAI } from '@google/genai';
 
-const GeneratePoemInputSchema = z.object({
-  theme: z.string().describe('The theme of the poem.'),
-  style: z.string().describe('The style of the poem (e.g., haiku, sonnet, free verse).'),
-});
-export type GeneratePoemInput = z.infer<typeof GeneratePoemInputSchema>;
+// Initialize the Google Gen AI SDK
+// It automatically resolves process.env.GEMINI_API_KEY from environment variables
+const ai = new GoogleGenAI({});
 
-const GeneratePoemOutputSchema = z.object({
-  poem: z.string().describe('The generated poem.'),
-});
-export type GeneratePoemOutput = z.infer<typeof GeneratePoemOutputSchema>;
+export type GeneratePoemInput = {
+  theme: string;
+  style: string;
+};
 
 export type GeneratePoemResponse = 
   | { success: true; poem: string }
@@ -27,10 +24,38 @@ export type GeneratePoemResponse =
 
 export async function generatePoem(input: GeneratePoemInput): Promise<GeneratePoemResponse> {
   try {
-    const result = await generatePoemFlow(input);
-    return { success: true, poem: result.poem };
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.0-flash',
+      contents: `You are a skilled poet. Please write a poem with the following theme and style:
+
+Theme: ${input.theme}
+Style: ${input.style}
+
+Poem:`,
+      config: {
+        responseMimeType: 'application/json',
+        responseSchema: {
+          type: 'OBJECT',
+          properties: {
+            poem: {
+              type: 'STRING',
+              description: 'The generated poem.',
+            },
+          },
+          required: ['poem'],
+        },
+      },
+    });
+
+    const text = response.text;
+    if (!text) {
+      throw new Error("No response text returned from Gemini API.");
+    }
+
+    const data = JSON.parse(text);
+    return { success: true, poem: data.poem };
   } catch (error: any) {
-    console.error("Error in generatePoem Server Action:", error);
+    console.error("Error generating poem with Gemini SDK:", error);
     const errorMessage = error?.message || String(error);
     const isRateLimit = 
       errorMessage.includes('429') || 
@@ -38,7 +63,7 @@ export async function generatePoem(input: GeneratePoemInput): Promise<GeneratePo
       errorMessage.toLowerCase().includes('rate_limit') ||
       errorMessage.toLowerCase().includes('rate limit') ||
       errorMessage.toLowerCase().includes('too many requests');
-    
+
     if (isRateLimit) {
       return {
         success: false,
@@ -46,37 +71,10 @@ export async function generatePoem(input: GeneratePoemInput): Promise<GeneratePo
         isRateLimit: true
       };
     }
+
     return {
       success: false,
       error: error?.message || "An unexpected error occurred while generating the poem."
     };
   }
 }
-
-const generatePoemPrompt = ai.definePrompt({
-  name: 'generatePoemPrompt',
-  input: {
-    schema: GeneratePoemInputSchema,
-  },
-  output: {
-    schema: GeneratePoemOutputSchema,
-  },
-  prompt: `You are a skilled poet. Please write a poem with the following theme and style:
-
-Theme: {{{theme}}}
-Style: {{{style}}}
-
-Poem:`,
-});
-
-const generatePoemFlow = ai.defineFlow(
-  {
-    name: 'generatePoemFlow',
-    inputSchema: GeneratePoemInputSchema,
-    outputSchema: GeneratePoemOutputSchema,
-  },
-  async input => {
-    const {output} = await generatePoemPrompt(input);
-    return output!;
-  }
-);
