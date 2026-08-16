@@ -24,33 +24,33 @@ body {
 
 @layer base {
   :root {
-    --background: 172 65% 5%; /* Mystical deep teal/emerald (#041c1a) */
-    --foreground: 170 30% 92%; /* Minty soft white (#e5f4f2) */
+    --background: 172 65% 5%; /* Deep mystical teal (#041c1a) */
+    --foreground: 170 40% 96%; /* Crisp high-contrast minty white */
 
-    --card: 172 45% 7%; /* Luminous translucent dark teal card (#052321) */
-    --card-foreground: 170 30% 92%;
+    --card: 172 55% 7%; /* Translucent dark teal card base */
+    --card-foreground: 170 40% 96%;
 
-    --popover: 172 45% 7%;
-    --popover-foreground: 170 30% 92%;
+    --popover: 172 55% 7%;
+    --popover-foreground: 170 40% 96%;
 
-    --primary: 45 93% 58%; /* Radiant Amber Gold (#fbbf24) */
-    --primary-foreground: 172 65% 4%;
+    --primary: 45 100% 60%; /* Vibrant Amber Gold */
+    --primary-foreground: 172 80% 4%;
 
-    --secondary: 172 30% 12%; /* Muted slate teal */
-    --secondary-foreground: 170 30% 92%;
+    --secondary: 172 35% 15%;
+    --secondary-foreground: 170 40% 96%;
 
-    --muted: 172 35% 10%;
-    --muted-foreground: 170 15% 65%;
+    --muted: 172 35% 12%;
+    --muted-foreground: 170 25% 78%; /* Brighter, high-contrast muted text */
 
-    --accent: 160 84% 60%; /* Glowing turquoise/mint green (#34d399) */
-    --accent-foreground: 172 65% 4%;
+    --accent: 160 90% 55%; /* Glowing emerald mint */
+    --accent-foreground: 172 80% 4%;
 
-    --destructive: 0 80% 55%;
+    --destructive: 0 80% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 172 30% 14%; /* Deep teal borders */
-    --input: 172 35% 8%;
-    --ring: 45 93% 58%;
+    --border: 172 40% 22%; /* Defined teal borders */
+    --input: 172 45% 10%;
+    --ring: 45 100% 60%;
 
     --radius: 0.75rem;
   }
@@ -58,24 +58,24 @@ body {
   .dark {
     /* Identical for dark-mode rendering */
     --background: 172 65% 5%;
-    --foreground: 170 30% 92%;
-    --card: 172 45% 7%;
-    --card-foreground: 170 30% 92%;
-    --popover: 172 45% 7%;
-    --popover-foreground: 170 30% 92%;
-    --primary: 45 93% 58%;
-    --primary-foreground: 172 65% 4%;
-    --secondary: 172 30% 12%;
-    --secondary-foreground: 170 30% 92%;
-    --muted: 172 35% 10%;
-    --muted-foreground: 170 15% 65%;
-    --accent: 160 84% 60%;
-    --accent-foreground: 172 65% 4%;
-    --destructive: 0 80% 55%;
+    --foreground: 170 40% 96%;
+    --card: 172 55% 7%;
+    --card-foreground: 170 40% 96%;
+    --popover: 172 55% 7%;
+    --popover-foreground: 170 40% 96%;
+    --primary: 45 100% 60%;
+    --primary-foreground: 172 80% 4%;
+    --secondary: 172 35% 15%;
+    --secondary-foreground: 170 40% 96%;
+    --muted: 172 35% 12%;
+    --muted-foreground: 170 25% 78%;
+    --accent: 160 90% 55%;
+    --accent-foreground: 172 80% 4%;
+    --destructive: 0 80% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 172 30% 14%;
-    --input: 172 35% 8%;
-    --ring: 45 93% 58%;
+    --border: 172 40% 22%;
+    --input: 172 45% 10%;
+    --ring: 45 100% 60%;
   }
 }
 

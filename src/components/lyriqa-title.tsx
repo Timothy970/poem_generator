@@ -70,10 +70,10 @@ export function LyriqaTitle() {
       </div>
 
       <div className="text-center space-y-1">
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-foreground">
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-emerald-300 to-teal-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
           Lyriqa
         </h1>
-        <p className="text-muted-foreground text-xs md:text-sm max-w-sm mx-auto font-sans leading-relaxed">
+        <p className="text-emerald-100/90 text-xs md:text-sm max-w-md mx-auto font-sans font-medium leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
           Where human emotion meets artificial intelligence to craft stunning, structured poetry.
         </p>
       </div>
