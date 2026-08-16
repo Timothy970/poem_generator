@@ -14,14 +14,14 @@ export default function LyriqaPage() {
         style={{ objectFit: "cover" }}
         quality={90}
         priority
-        className="z-0 opacity-85 animate-slow-pan pointer-events-none contrast-125"
+        className="z-0 opacity-75 animate-slow-pan pointer-events-none brightness-105 contrast-110"
       />
-      {/* Premium dark teal gradient overlay for optimal readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/35 to-background/60 z-10 pointer-events-none" />
+      {/* Balanced dark teal overlay for optimal text legibility while keeping image vivid */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/25 to-background/70 z-10 pointer-events-none backdrop-blur-[1px]" />
       
       {/* Content wrapper rendered on top of the background and gradient */}
       <div className="relative z-20 flex flex-col h-screen max-h-screen overflow-hidden">
-        <header className="py-4 md:py-6 flex-none">
+        <header className="py-3 md:py-5 flex-none">
           <div className="container mx-auto px-4">
             <LyriqaTitle />
           </div>
@@ -29,7 +29,7 @@ export default function LyriqaPage() {
         <main className="flex-grow overflow-hidden flex items-center justify-center py-2 px-4 md:px-8">
           <PoemGenerator />
         </main>
-        <footer className="text-center py-2 text-muted-foreground/50 text-[10px] border-t border-border/10 flex-none bg-background/40 backdrop-blur-sm">
+        <footer className="text-center py-2.5 text-emerald-200/80 text-[11px] font-medium tracking-wide border-t border-emerald-500/20 flex-none bg-slate-950/70 backdrop-blur-md">
           <p>&copy; {new Date().getFullYear()} Lyriqa. All rights reserved.</p>
         </footer>
       </div>

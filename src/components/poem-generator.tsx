@@ -86,33 +86,33 @@ export function PoemGenerator() {
   return (
     <div className="w-full max-w-6xl h-full flex flex-col md:flex-row gap-6 items-stretch overflow-hidden">
       {/* Left panel: Form Controls */}
-      <Card className="flex-1 flex flex-col h-full bg-card/5 backdrop-blur-sm border-teal-500/20 shadow-xl shadow-black/10 rounded-xl overflow-hidden transition-all duration-300">
-        <CardHeader className="space-y-1 p-5 pb-2">
-          <CardTitle className="text-xl font-bold flex items-center gap-3 text-foreground">
-            <PenTool className="h-5 w-5 text-primary" />
+      <Card className="flex-1 flex flex-col h-full bg-slate-950/75 backdrop-blur-md border-emerald-500/30 shadow-2xl shadow-black/50 rounded-xl overflow-hidden transition-all duration-300">
+        <CardHeader className="space-y-1 p-5 pb-2 border-b border-emerald-500/15">
+          <CardTitle className="text-xl font-bold flex items-center gap-3 text-emerald-50">
+            <PenTool className="h-5 w-5 text-amber-400" />
             Shape Your Verses
           </CardTitle>
-          <CardDescription className="text-xs text-muted-foreground/80">
+          <CardDescription className="text-xs text-emerald-200/90 font-medium">
             Define a theme and style, then let the system weave them into poetry.
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-5 pt-2 flex-grow flex flex-col justify-center overflow-y-auto">
+        <CardContent className="p-5 pt-4 flex-grow flex flex-col justify-center overflow-y-auto">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
               <FormField
                 control={form.control}
                 name="theme"
                 render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel className="text-xs font-semibold tracking-wide uppercase text-muted-foreground">Theme</FormLabel>
+                  <FormItem className="space-y-1.5">
+                    <FormLabel className="text-xs font-bold tracking-wider uppercase text-emerald-200">Theme</FormLabel>
                     <FormControl>
                       <Input 
                         placeholder="e.g., Autumn winds, Whispers of the sea" 
                         {...field} 
-                        className="text-sm bg-background/10 border-border/30 focus:border-primary/80 text-foreground rounded-lg h-10 focus:ring-1 focus:ring-primary/50 placeholder:text-muted-foreground/30 backdrop-blur-xs"
+                        className="text-sm bg-black/60 border-emerald-500/40 focus:border-amber-400 text-white rounded-lg h-11 focus:ring-2 focus:ring-amber-400/30 placeholder:text-emerald-200/60 backdrop-blur-xs font-medium"
                       />
                     </FormControl>
-                    <FormMessage className="text-xs" />
+                    <FormMessage className="text-xs text-red-300" />
                   </FormItem>
                 )}
               />
@@ -120,39 +120,39 @@ export function PoemGenerator() {
                 control={form.control}
                 name="style"
                 render={({ field }) => (
-                  <FormItem className="space-y-1">
-                    <FormLabel className="text-xs font-semibold tracking-wide uppercase text-muted-foreground">Style</FormLabel>
+                  <FormItem className="space-y-1.5">
+                    <FormLabel className="text-xs font-bold tracking-wider uppercase text-emerald-200">Style</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger className="text-sm bg-background/10 border-border/30 focus:border-primary/80 text-foreground rounded-lg h-10 focus:ring-1 focus:ring-primary/50 backdrop-blur-xs">
+                        <SelectTrigger className="text-sm bg-black/60 border-emerald-500/40 focus:border-amber-400 text-white rounded-lg h-11 focus:ring-2 focus:ring-amber-400/30 backdrop-blur-xs font-medium">
                           <SelectValue placeholder="Select a poetry style" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent className="bg-popover/95 border-border/70 rounded-lg">
+                      <SelectContent className="bg-slate-950/95 border-emerald-500/40 text-emerald-50 rounded-lg shadow-2xl backdrop-blur-md">
                         {poemStyles.map((style) => (
-                          <SelectItem key={style} value={style} className="text-sm hover:bg-muted focus:bg-muted cursor-pointer transition-colors duration-150">
+                          <SelectItem key={style} value={style} className="text-sm hover:bg-emerald-900/40 focus:bg-emerald-900/50 cursor-pointer transition-colors duration-150 text-emerald-100 font-medium">
                             {style}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage className="text-xs" />
+                    <FormMessage className="text-xs text-red-300" />
                   </FormItem>
                 )}
               />
               <Button 
                 type="submit" 
                 disabled={isLoading} 
-                className="w-full text-sm font-semibold py-5 rounded-lg btn-glow bg-gradient-to-r from-primary to-accent hover:from-primary/95 hover:to-accent/95 text-primary-foreground shadow-md hover:shadow-primary/10 transition-all duration-300"
+                className="w-full text-sm font-bold py-5 rounded-lg btn-glow bg-gradient-to-r from-amber-400 via-amber-500 to-emerald-400 hover:from-amber-300 hover:to-emerald-300 text-slate-950 shadow-lg shadow-amber-500/20 transition-all duration-300 active:scale-[0.99]"
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin text-slate-950" />
                     Weaving words...
                   </>
                 ) : (
                   <>
-                    <Sparkles className="mr-2 h-4 w-4" />
+                    <Sparkles className="mr-2 h-4 w-4 text-slate-950" />
                     Generate Poem
                   </>
                 )}
@@ -163,33 +163,33 @@ export function PoemGenerator() {
       </Card>
 
       {/* Right panel: Poem output display */}
-      <Card className="flex-1 flex flex-col h-full bg-card/5 backdrop-blur-sm border-teal-500/20 shadow-xl shadow-black/10 rounded-xl overflow-hidden transition-all duration-300">
-        <CardHeader className="space-y-1 p-5 pb-2">
-          <CardTitle className="text-xl font-bold flex items-center gap-3 text-foreground">
-            <Feather className="h-5 w-5 text-accent" />
+      <Card className="flex-1 flex flex-col h-full bg-slate-950/75 backdrop-blur-md border-emerald-500/30 shadow-2xl shadow-black/50 rounded-xl overflow-hidden transition-all duration-300">
+        <CardHeader className="space-y-1 p-5 pb-2 border-b border-emerald-500/15">
+          <CardTitle className="text-xl font-bold flex items-center gap-3 text-emerald-50">
+            <Feather className="h-5 w-5 text-emerald-400" />
             The Canvas
           </CardTitle>
-          <CardDescription className="text-xs text-muted-foreground/80">
+          <CardDescription className="text-xs text-emerald-200/90 font-medium">
             {isLoading ? "Channeling the muse..." : (generatedPoem ? "Your generated creation:" : "Where your lines will take form.")}
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-5 pt-2 flex-grow flex flex-col overflow-hidden">
-          <div className="flex-grow h-0 overflow-y-auto border border-border/25 p-5 bg-background/5 backdrop-blur-xs rounded-lg custom-scrollbar">
+        <CardContent className="p-5 pt-4 flex-grow flex flex-col overflow-hidden">
+          <div className="flex-grow h-0 overflow-y-auto border border-emerald-500/30 p-6 bg-black/60 backdrop-blur-xs rounded-lg custom-scrollbar">
             {isLoading ? (
               <div className="flex flex-col items-center justify-center h-full min-h-[180px] space-y-3">
-                <Loader2 className="h-10 w-10 animate-spin text-primary" />
-                <p className="text-muted-foreground font-serif italic text-sm animate-pulse">Consulting the ether...</p>
+                <Loader2 className="h-10 w-10 animate-spin text-amber-400" />
+                <p className="text-emerald-200 font-serif italic text-sm animate-pulse">Consulting the ether...</p>
               </div>
             ) : generatedPoem ? (
               <div className="fade-in-text flex flex-col justify-center min-h-full py-2">
-                <pre className="whitespace-pre-wrap text-foreground text-base md:text-lg font-serif italic leading-relaxed text-center">
+                <pre className="whitespace-pre-wrap text-emerald-50 text-base md:text-lg font-serif italic leading-relaxed text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                   {generatedPoem}
                 </pre>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center h-full min-h-[180px] text-center space-y-3 opacity-60">
-                <Feather className="h-10 w-10 text-primary/50 animate-bounce" style={{ animationDuration: '4s' }} />
-                <p className="text-muted-foreground font-serif italic text-base">Awaiting the spark of creation...</p>
+              <div className="flex flex-col items-center justify-center h-full min-h-[180px] text-center space-y-3 opacity-80">
+                <Feather className="h-10 w-10 text-amber-400/80 animate-bounce" style={{ animationDuration: '4s' }} />
+                <p className="text-emerald-200/90 font-serif italic text-base font-medium">Awaiting the spark of creation...</p>
               </div>
             )}
           </div>

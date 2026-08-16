@@ -25,7 +25,7 @@ export type GeneratePoemResponse =
 export async function generatePoem(input: GeneratePoemInput): Promise<GeneratePoemResponse> {
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model: 'gemini-flash-latest',
       contents: `You are a skilled poet. Please write a poem with the following theme and style:
 
 Theme: ${input.theme}

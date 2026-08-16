@@ -1,6 +1,6 @@
 # Floral Muse — AI Poem Generator
 
-Floral Muse is an elegant, responsive, and AI-powered poem generator. It allows users to write custom poems by providing a theme and choosing from various poetry styles. The project is built using **Next.js 15**, **Tailwind CSS**, and **Google Genkit** with the Gemini 2.0 Flash model.
+Floral Muse is an elegant, responsive, and AI-powered poem generator. It allows users to write custom poems by providing a theme and choosing from various poetry styles. The project is built using **Next.js 15**, **Tailwind CSS**, and **Google GenAI SDK** with the `gemini-flash-latest` model.
 
 ---
 
@@ -8,7 +8,7 @@ Floral Muse is an elegant, responsive, and AI-powered poem generator. It allows 
 
 - **Custom Poetic Styles:** Generate poems in various styles including *Haiku, Sonnet, Free Verse, Limerick, Ode, Ballad, Villanelle, Acrostic,* and *Cinquain*.
 - **Elegant UI/UX:** A responsive, themed interface with smooth animations, custom scrollbars, loading states, and toast notifications.
-- **AI-Powered:** Built with Google Genkit and `@genkit-ai/googleai` using the `gemini-2.0-flash` model.
+- **AI-Powered:** Built with Google GenAI SDK (`@google/genai`) using the `gemini-flash-latest` model.
 - **Developer UI Support:** Integrated with Genkit's Developer UI for inspecting and testing AI flows locally.
 
 ---
@@ -16,8 +16,8 @@ Floral Muse is an elegant, responsive, and AI-powered poem generator. It allows 
 ## 🛠️ Tech Stack
 
 - **Framework:** [Next.js 15](https://nextjs.org/) (App Router, Turbopack)
-- **AI Framework:** [Google Genkit](https://firebase.google.com/docs/genkit)
-- **AI Model:** Google Gemini 2.0 Flash (`googleai/gemini-2.0-flash`)
+- **AI SDK:** [Google GenAI SDK](https://github.com/googleapis/genai-js)
+- **AI Model:** Google Gemini Flash (`gemini-flash-latest`)
 - **Styling:** Tailwind CSS, Radix UI (accessible components), Lucide Icons
 - **Language:** TypeScript
 
